@@ -1,0 +1,162 @@
+Single Responsibility Principle (SRP)
+
+What is the Single Responsibility Principle (SRP)?
+The Single Responsibility Principle (SRP) states:
+
+ "A class should have only one reason to change."
+
+In simpler terms,each class should focus on doing only one thing.
+ If a class is handling multiple responsibilities, then changes
+  related to one responsibility might impact the others, making the system
+ fragile, hard to understand, and difficult to maintain.
+
+---
+
+Why is SRP Important?
+
+Without SRP, a class becomes a "God Object"—handling too many things at once. This leads to:
+
+🔴 Poor maintainability – Every small change affects unrelated parts.
+🔴 High coupling – Code dependencies make refactoring difficult.
+🔴 Reduced reusability – You can’t reuse a class that does too many things.
+🔴 Harder testing – More responsibilities mean more test cases and higher complexity.
+
+By following SRP, you get:
+
+✅ Easier debugging – Since each class does one thing, issues are isolated.
+✅ Better reusability – A focused class can be used in multiple places.
+✅ Simplified testing – With clear boundaries, unit testing becomes straightforward.
+
+---
+
+Common Mistake – Violating SRP
+Let’s consider an example of an Employee Management System that violates SRP:
+
+```java
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public void saveToDatabase() {
+        System.out.println("Saving employee data to database...");
+        // Logic for database operations
+    }
+
+    public void calculateSalary() {
+        System.out.println("Calculating salary for employee...");
+        // Salary calculation logic
+    }
+
+    public void printPayslip() {
+        System.out.println("Generating payslip...");
+        // Payslip generation logic
+    }
+}
+```
+
+🔴 What’s Wrong Here?
+The `Employee` class has three different responsibilities:
+1. Managing employee data (name, salary).
+2. Handling database operations (saving employee data).
+3. Generating reports (salary calculation and payslip).
+
+This means if we need to change the database logic, we have to modify
+`Employee`. Similarly, if the salary calculation changes, we still need to
+ modify `Employee`, which can accidentally break database operations or report generation.
+
+---
+
+Correcting the Violation – Applying SRP
+
+To fix this, we separate concerns by creating dedicated classes for each responsibility.
+
+```java
+// Employee class should only handle employee-related data
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public String getName() { return name; }
+    public double getSalary() { return salary; }
+}
+
+// Handles persistence logic (database operations)
+class EmployeeRepository {
+    public void saveToDatabase(Employee employee) {
+        System.out.println("Saving " + employee.getName() + " to database...");
+        // Database logic
+    }
+}
+
+// Handles salary calculations
+class SalaryCalculator {
+    public double calculateSalary(Employee employee) {
+        System.out.println("Calculating salary for " + employee.getName() + "...");
+        return employee.getSalary(); // Logic for salary computation
+    }
+}
+
+// Handles report generation
+class PayslipPrinter {
+    public void printPayslip(Employee employee) {
+        System.out.println("Generating payslip for " + employee.getName() + "...");
+        // Payslip generation logic
+    }
+}
+```
+
+---
+
+Why Is This Better?
+
+✅ Each class has a single responsibility:
+- `Employee` – Only stores employee details.
+- `EmployeeRepository` – Handles database operations.
+- `SalaryCalculator` – Computes salary.
+- `PayslipPrinter` – Generates payslip.
+
+✅ Changes are isolated:
+- If database logic changes, modify `EmployeeRepository` only.
+- If salary calculation changes, modify `SalaryCalculator` only.
+
+✅ Easier Testing:
+- You can write unit tests for `SalaryCalculator` without worrying
+  about database or reports.
+
+✅ Better Reusability:
+- `SalaryCalculator` and `PayslipPrinter` can be used for different employee
+  types (contractors, interns, etc.) without modifying `Employee`.
+
+---
+
+Real-World Use Cases of SRP
+
+1. Microservices Design – Each service (e.g., authentication,
+ payment, user profile) follows SRP by handling a single responsibility.
+
+2. Logging Systems – A separate `Logger` class is responsible for logging,
+ instead of adding logging functionality to multiple classes.
+
+3. API Development – Controller classes in a REST API should only handle HTTP
+ requests, while services handle business logic.
+
+---
+
+Key Takeaways
+✔ A class should have only one reason to change.
+✔ Separate responsibilities into dedicated classes.
+✔ Leads to cleaner, more maintainable, and testable code.
+✔ Widely used in scalable architectures like microservices and APIs.
+
+By following SRP, we ensure that our code remains flexible, maintainable,
+and scalable —which is exactly what great software engineering is all about!
