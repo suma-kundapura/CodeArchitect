@@ -1,0 +1,158 @@
+### Liskov Substitution Principle (LSP)
+
+Liskov Substitution Principle (LSP) is one of the SOLID principles of object-oriented design.
+It was introduced by Barbara Liskov in 1987 as part of her research on data abstraction and
+object-oriented programming.
+
+---
+
+### Definition
+Liskov Substitution Principle states:
+
+"If `S` is a subclass of `T`, then objects of type `T` can be replaced with objects of type `S`
+without altering the correctness of the program."
+
+In simple terms:
+- A subclass must be able to replace its superclass without breaking functionality.
+- The behavior of the superclass must be preserved in its subclasses.
+- The client code should not need to know whether it is using the base class or a derived class.
+
+---
+
+### Why is LSP Important?
+
+If LSP is violated:
+- Substituting a subclass instead of the superclass causes unexpected behavior.
+- The code becomes harder to maintain and debug.
+- It violates the Open-Closed Principle (OCP), as modifications might be required when adding new subclasses.
+
+If LSP is followed:
+- The system remains stable when new subclasses are introduced.
+- Reusability and maintainability improve because derived classes behave predictably.
+- The code follows the polymorphism principle correctly.
+
+---
+
+### Real-World Industry Example: Storage System
+
+In an enterprise application, suppose we have a storage system that supports different types of data
+storage like relational databases (MySQL, PostgreSQL) and cloud storage (AWS S3, Google Cloud Storage).
+
+A common base class `DataStorage` is defined to provide a uniform interface for saving and retrieving data.
+
+#### LSP Violation in the Storage System
+
+```java
+abstract class DataStorage {
+    abstract void save(String data);
+    abstract String retrieve();
+}
+
+class MySQLStorage extends DataStorage {
+    @Override
+    void save(String data) {
+        System.out.println("Saving data to MySQL: " + data);
+    }
+
+    @Override
+    String retrieve() {
+        return "Data retrieved from MySQL";
+    }
+}
+
+class S3Storage extends DataStorage {
+    @Override
+    void save(String data) {
+        throw new UnsupportedOperationException("S3 storage does not support direct saving of individual records.");
+    }
+
+    @Override
+    String retrieve() {
+        return "Data retrieved from S3 bucket";
+    }
+}
+```
+
+#### Testing the System
+
+```java
+public class StorageTest {
+    public static void main(String[] args) {
+        DataStorage storage = new MySQLStorage();
+        storage.save("User Info"); // Works fine
+
+        storage = new S3Storage();
+        storage.save("User Info"); // Throws exception, breaking LSP
+    }
+}
+```
+
+#### Why is this an LSP Violation?
+- The base class `DataStorage` expects all subclasses to support `save()` and `retrieve()`.
+- `S3Storage` does not support direct `save()` operations, breaking the substitutability of `DataStorage`.
+- If the client code tries to use `S3Storage`, it will encounter unexpected exceptions.
+
+---
+
+### Correcting the Violation
+
+To follow LSP, the design should be modified to separate different types of storage behaviors.
+ Instead of forcing all storage types into one base class, we introduce two interfaces:
+
+```java
+interface ReadableStorage {
+    String retrieve();
+}
+
+interface WritableStorage {
+    void save(String data);
+}
+
+class MySQLStorage implements ReadableStorage, WritableStorage {
+    @Override
+    public void save(String data) {
+        System.out.println("Saving data to MySQL: " + data);
+    }
+
+    @Override
+    public String retrieve() {
+        return "Data retrieved from MySQL";
+    }
+}
+
+class S3Storage implements ReadableStorage {
+    @Override
+    public String retrieve() {
+        return "Data retrieved from S3 bucket";
+    }
+}
+```
+
+#### Testing the System (Now Correct)
+
+```java
+public class StorageTest {
+    public static void main(String[] args) {
+        ReadableStorage readableStorage = new S3Storage();
+        System.out.println(readableStorage.retrieve()); // Works fine
+
+        WritableStorage writableStorage = new MySQLStorage();
+        writableStorage.save("User Info"); // Works fine
+    }
+}
+```
+
+### Why is this Correct?
+- `S3Storage` is now only responsible for retrieving data, avoiding an unsupported `save()` method.
+- `MySQLStorage` correctly implements both `save()` and `retrieve()`.
+- The client code is now aware of the storage capabilities and does not assume incorrect behaviors.
+
+---
+
+### Conclusion
+
+Liskov Substitution Principle ensures that subclasses truly act as their parent class without breaking expectations.
+
+If substituting a subclass causes issues, it likely violates LSP.
+
+Using interfaces and composition instead of deep inheritance leads to a more maintainable, scalable, and robust system.
