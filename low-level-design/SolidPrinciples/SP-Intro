@@ -1,0 +1,65 @@
+
+Introduction to SOLID Principles:
+
+Software development is like building a city—if the roads, buildings, and infrastructure
+aren’t planned well, things quickly become chaotic. SOLID principles help developers
+create structured, scalable, and maintainable software by following five fundamental
+design guidelines in Object-Oriented Programming (OOP). These principles ensure that
+software is flexible, reusable, and easy to modify without unintended consequences.
+
+------------------------------------------------------------------------------------------------------------
+
+What Are SOLID Principles?
+
+SOLID is an acronym representing five design principles introduced by Robert C. Martin (Uncle Bob) in early 2000.
+These principles form the foundation of clean software architecture in OOP.
+
+Principle Definition:
+
+S - Single Responsibility Principle (SRP) | A class should have only one reason to change.
+O - Open/Closed Principle (OCP) | Software entities should be open for extension but closed for modification.
+L - Liskov Substitution Principle (LSP) | Subtypes should be substitutable for their base types without altering correctness.
+I - Interface Segregation Principle (ISP) | Clients should not be forced to depend on interfaces they do not use.
+D - Dependency Inversion Principle (DIP) | High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+------------------------------------------------------------------------------------------------------------
+
+How Did SOLID Principles Emerge?
+
+Before SOLID, software development faced several challenges:
+1 Tightly coupled code – Small changes in one part of the system affected other unrelated parts.
+2 Low reusability – Developers had to rewrite the same logic in different places.
+3 Difficult maintenance – As codebases grew, debugging and extending became a nightmare.
+
+In the 1980s and 1990s, Object-Oriented Programming (OOP) became popular, but poorly designed OOP
+ systems still suffered from these issues.
+ In 2000, Robert C. Martin introduced the SOLID principles as a way to standardize best practices
+ for writing flexible and maintainable OOP code.
+
+The term "SOLID" was later coined by Michael Feathers after identifying the acronym from Uncle Bob’s work.
+
+-------------------------------------
+
+Use Cases of SOLID Principles
+
+ 1. Building Scalable Applications
+- In microservices architecture, SOLID ensures that each service has a single responsibility and is independent.
+
+ 2. Enterprise Software Development
+- Helps create large systems (banking, healthcare, e-commerce) that can evolve without breaking existing functionality.
+
+ 3. Framework & API Design
+- Libraries like Spring Boot, Hibernate, and Angular follow SOLID principles to remain extensible and maintainable.
+
+ 4. Improving Testability
+- SOLID promotes loosely coupled code, making it easier to write unit tests using frameworks like JUnit & Mockito.
+
+ 5. Reducing Development & Maintenance Costs
+- Avoids rewriting code by making components reusable, thus reducing technical debt.
+
+------------------------------------------------------------------------------------------------------------
+Final Thought
+
+SOLID principles are not just rules but a mindset that helps developers write better code.
+Whether you're designing a small application or a large enterprise system, applying these
+principles ensures clean, maintainable, and scalable software.
