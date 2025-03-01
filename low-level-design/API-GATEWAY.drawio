@@ -13,7 +13,7 @@
         <mxCell id="8a1skck4n-ZpyFF_SzqH-19" value="Advantages: Single Entry Point, Security, Load balancing, Rate limiting and Throttling,Request Transformation, Monitoring and logging&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="QnXL4Apb_vMJ2Xs9XaOY-1" vertex="1">
           <mxGeometry x="490" y="360" width="160" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="8a1skck4n-ZpyFF_SzqH-20" value="Disadvantages:&amp;nbsp; Single Point of failure, Increased latency, Complexity,Scalabiility callenges, Potentail Bottelneck if not optimized" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="QnXL4Apb_vMJ2Xs9XaOY-1" vertex="1">
+        <mxCell id="8a1skck4n-ZpyFF_SzqH-20" value="Disadvantages:&amp;nbsp; Single Point of failure, Increased latency, Complexity, Scalability challenges, Potential Bottleneck if not optimized" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="QnXL4Apb_vMJ2Xs9XaOY-1" vertex="1">
           <mxGeometry x="680" y="365" width="160" height="30" as="geometry" />
         </mxCell>
         <mxCell id="8a1skck4n-ZpyFF_SzqH-1" value="&amp;nbsp;Microservices" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
